@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+
+      <form [formGroup]="sendMessageForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="sendmessage">Send A Message</label><br>
+          <input formControlName="firstName"
+            [ngClass]="{'is-invalid':submitted && sendMessageForm.controls['firstName'].errors}" type="text"
+            class="form-control" placeholder="Name">
+          <div *ngIf="submitted && sendMessageForm.controls['firstName'].errors" class="text-danger">
+            <div *ngIf="submitted && sendMessageForm.controls['firstName'].errors['required']">
+              Please enter your Name
+            </div>
+          </div>
+        </div><br>
+        
+
+            <input formControlName="email"
+            [ngClass]="{'is-invalid': submitted && (sendMessageForm.controls['email'].errors?.['required'] || 
+            (sendMessageForm.controls['email'].touched && sendMessageForm.controls['email'].errors?.['invalidEmail'])) }"
+            type="text" class="form-control" placeholder="Email">
+     <div *ngIf="submitted && sendMessageForm.controls['email'].errors" class="text-danger">
+        <div *ngIf="sendMessageForm.controls['email'].errors['required']">
+         Please enter an email
+       </div> 
+       <div *ngIf="(sendMessageForm.controls['email'].touched && sendMessageForm.controls['email'].errors?.['invalidEmail'])">
+          Please enter a valid email 
+       </div> 
+       <div *ngIf="(sendMessageForm.controls['email'].touched && sendMessageForm.controls['email'].errors?.['invalidDomain'])">
+        Please enter a valid email with a valid domain
+      </div>
+     </div><br> 
+
+        <div class="form-group">
+          <input formControlName="subject"
+            [ngClass]="{'is-invalid':submitted && sendMessageForm.controls['subject'].errors}" type="text"
+            class="form-control" placeholder="Subject">
+          <div *ngIf="submitted && sendMessageForm.controls['subject'].errors" class="text-danger">
+            <div *ngIf="submitted && sendMessageForm.controls['subject'].errors['required']">
+              Please enter the subject
+            </div>
+          </div>
+        </div><br>
+        <div class="form-group">
+          <textarea formControlName="message"
+            [ngClass]="{'is-invalid':submitted && sendMessageForm.controls['message'].errors}" class="form-control"
+            style="height:200px" placeholder="Enter your message"></textarea>
+          <div *ngIf="submitted && sendMessageForm.controls['message'].errors" class="text-danger">
+            <div *ngIf="submitted && sendMessageForm.controls['message'].errors['required']">
+              Please enter your message
+            </div>
+          </div>
+        </div><br>
+        <div class="form-group">
+          <button class="btn btn-primary">
+            Send Message
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
